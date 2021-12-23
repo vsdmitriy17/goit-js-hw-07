@@ -26,7 +26,7 @@ function createGalleryCardsMarkup(galleryItems) {
 //Ф-ция:
 //     отменяет действия браузера по умолчанию;
 //     проверяет условие клика по элементу img (не реагирует на клик на др элементы);
-//     создает и открывает модальное окно (instance - библиотека basicLightbox, методы create(), show()), с оригинальным (большим - original) изображением;
+//     открывает модальное окно с оригинальным (большим - original) изображением;
 //     добавляет слушателя события  'keydown' на элемент window
 function onGalleryCardClick(evt) {
     evt.preventDefault();
@@ -35,13 +35,18 @@ function onGalleryCardClick(evt) {
         return;
     }
 
-    instance = basicLightbox.create(`
-		<img src="${evt.target.dataset.source}">
-	`);
-    instance.show();
+    openModalLightbox(evt);
 
     window.addEventListener('keydown', onEscKeyPress);
 };
+
+//Ф-ция - создает и открывает модальное окно (instance - библиотека basicLightbox, методы create(), show()), с оригинальным (большим - original) изображением;
+function openModalLightbox(e) {
+    instance = basicLightbox.create(`
+		<img src="${e.target.dataset.source}">
+	`);
+    instance.show();
+}
 
 //Ф-ция, при нашатии на клавишу 'Escape'
 //     закрывает модальное окно (instance - библиотека basicLightbox, метод close());
